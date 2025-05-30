@@ -5,7 +5,7 @@ import PulincorHeadTitle from "../workers/PulincorHeadTitle";
 import { pulincorDecor, addIcon, plusBtn, minusBtn } from "../merchandise/pulincorImgs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { decor, createForm, card } from "../merchandise/PulincorStyles";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker"; 
 import { launchImageLibrary } from "react-native-image-picker";
 
 const PulincorSalesCreate = ({ sale }) => {
@@ -17,7 +17,21 @@ const PulincorSalesCreate = ({ sale }) => {
     const [productname, setProductname] = useState(sale?.productname || null);
     const [quantity, setQuantity] = useState(sale?.quantity || 0);
     const [pulincorWarehouseArrivals, setPulincorWarehouseArrivals] = useState([]);
-    const [selectedArrival, setSelectedArrival] = useState(sale?.arrival || null)
+    const [selectedArrival, setSelectedArrival] = useState(sale?.arrival || null);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);  
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (selectedDate) => {
+        setDate(selectedDate);
+        hideDatePicker();
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -152,15 +166,24 @@ const PulincorSalesCreate = ({ sale }) => {
                             </View>
                             
                             <Text style={createForm.label}>Date</Text>
-                            <DateTimePicker 
-                                value={sale ? new Date(date) : date} 
-                                mode="date" 
-                                display="spinner" 
+                            <TouchableOpacity onPress={showDatePicker} style={createForm.input}>
+                                <Text style={{
+                                    color: '#fff',
+                                    fontSize: 14,
+                                    fontWeight: '600'
+                                }}
+                                >
+                                    {date.toLocaleDateString()}
+                                </Text>
+                            </TouchableOpacity>
+
+                            <DateTimePickerModal
+                                isVisible={isDatePickerVisible}
+                                mode="date"
+                                date={date}
+                                onConfirm={handleConfirm}
+                                onCancel={hideDatePicker}
                                 themeVariant="dark"
-                                onChange={(event, selectedDate) => {
-                                    if (selectedDate) setDate(selectedDate);
-                                }} 
-                                style={{alignSelf: 'center'}}
                             />
 
                             <Text style={createForm.label}>Cover</Text>

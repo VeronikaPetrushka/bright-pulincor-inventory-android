@@ -5,7 +5,7 @@ import PulincorHeadTitle from "../workers/PulincorHeadTitle";
 import { pulincorDecor, pulincorCreate, pulincorFilter } from "../merchandise/pulincorImgs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { decor, card, createForm, filter } from "../merchandise/PulincorStyles";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker"; 
 
 const PulincorSales = () => {
     const navigation = useNavigation();
@@ -15,6 +15,20 @@ const PulincorSales = () => {
     const [filterStatus, setFilterStatus] = useState(null);
     const [filteredSales, setFilteredSales] = useState([]);
     const [filterApplied, setFilterApplied] = useState(false);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);  
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (selectedDate) => {
+        setFilterDate(selectedDate);
+        hideDatePicker();
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -157,15 +171,24 @@ const PulincorSales = () => {
                         <Text style={filter.title}>Filters</Text>
 
                         <Text style={createForm.label}>Date</Text>
-                        <DateTimePicker 
-                            value={filterDate ? new Date(filterDate) : filterDate} 
-                            mode="date" 
-                            display="spinner" 
+                        <TouchableOpacity onPress={showDatePicker} style={createForm.input}>
+                            <Text style={{
+                                color: '#fff',
+                                fontSize: 14,
+                                fontWeight: '600'
+                            }}
+                            >
+                                {filterDate.toLocaleDateString()}
+                            </Text>
+                        </TouchableOpacity>
+        
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            date={filterDate}
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
                             themeVariant="dark"
-                            onChange={(event, selectedDate) => {
-                                if (selectedDate) setFilterDate(selectedDate);
-                            }} 
-                            style={{alignSelf: 'center'}}
                         />
 
                         <Text style={createForm.label}>Payment status</Text>

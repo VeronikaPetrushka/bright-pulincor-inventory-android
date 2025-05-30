@@ -5,7 +5,7 @@ import PulincorHeadTitle from "../workers/PulincorHeadTitle";
 import { pulincorDecor, addIcon, plusBtn, minusBtn } from "../merchandise/pulincorImgs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { decor, createForm } from "../merchandise/PulincorStyles";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker"; 
 import { launchImageLibrary } from "react-native-image-picker";
 
 const PulincorArrivalsCreate = ({ object }) => {
@@ -17,6 +17,20 @@ const PulincorArrivalsCreate = ({ object }) => {
     const [supplier, setSupplier] = useState(object?.supplier || null);
     const [productname, setProductname] = useState(object?.productname || null);
     const [quantity, setQuantity] = useState(object?.quantity || 0);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);  
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (selectedDate) => {
+        setDate(selectedDate);
+        hideDatePicker();
+    };
 
     const parseDate = (date) => {
         if (typeof date === 'string') {
@@ -83,15 +97,24 @@ const PulincorArrivalsCreate = ({ object }) => {
                 </View>
 
                 <Text style={createForm.label}>Date</Text>
-                <DateTimePicker 
-                    value={object ? new Date(date) : date} 
-                    mode="date" 
-                    display="spinner" 
+                <TouchableOpacity onPress={showDatePicker} style={createForm.input}>
+                    <Text style={{
+                        color: '#fff',
+                        fontSize: 14,
+                        fontWeight: '600'
+                    }}
+                    >
+                        {date.toLocaleDateString()}
+                    </Text>
+                </TouchableOpacity>
+
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    date={date}
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
                     themeVariant="dark"
-                    onChange={(event, selectedDate) => {
-                        if (selectedDate) setDate(selectedDate);
-                    }} 
-                    style={{alignSelf: 'center'}}
                 />
 
                 <Text style={createForm.label}>Product name</Text>
