@@ -262,7 +262,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BrightPulincorInventory/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Bright Pulincor Inventory";
+				INFOPLIST_KEY_CFBundleDisplayName = BrightPulincorInventory;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -275,7 +275,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bright.pulincor.inventory.2025;
+				PRODUCT_BUNDLE_IDENTIFIER = plink.game.com;
 				PRODUCT_NAME = BrightPulincorInventory;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -291,7 +291,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = BrightPulincorInventory/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Bright Pulincor Inventory";
+				INFOPLIST_KEY_CFBundleDisplayName = BrightPulincorInventory;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -304,7 +304,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bright.pulincor.inventory.2025;
+				PRODUCT_BUNDLE_IDENTIFIER = plink.game.com;
 				PRODUCT_NAME = BrightPulincorInventory;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
